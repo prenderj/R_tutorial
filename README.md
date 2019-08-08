@@ -33,7 +33,7 @@ Then to start R just type:
 R
 ```
 
-## Installing packages and loading data
+## Installing packages
 In R anyone can create a new package and make it publically available. Although R comes with various statistical and plotting functions pre-installed, most of the time you will want to install extra packages that come with different functionalities. One of the most widely used collections of packages is called ["the tidyverse"](https://www.tidyverse.org/), which provides functions to simplify analysing datasets. 
 If they are not already installed, before you can use packages you first need to install them. To install "the tidyverse" you can type:
 ```
@@ -48,4 +48,34 @@ You will see that by loading "the tidyverse" various packages have been loaded. 
 ```
 vignette("tibble")
 ```
-**_Question 1: Have a look at the vignette for the stringr package, that was loaded as part of the tidyverse, to see what it is used for_**
+**_Question 1: Have a look at the vignette for the stringr package, that was loaded as part of the tidyverse. What is it used for?_**
+
+Each package contains functions for performing a given task, for example reading files or plotting data. We have already used some functions such as install.packages. You can find out more about a function by using the question mark symbol:
+```
+?install.packages
+```
+This shows what the function is for and importantly how to use it. Most functions will take a range of parameters that govern how the function is run and these are listed on these help pages. Generally at the bottom of these pages there will also be examples of how to use the function.
+
+## Reading and viewing files
+We are now going to use a function, read_tsv, from the tidyverse packages to read in the file we copied previously. First have a look at how this function works
+```
+?read_tsv
+```
+To use this function to read the file we can type:
+```
+read_tsv("EUR373.gene.cis.FDR5.all.rs137.txt.gz")
+```
+As we started R in the directory containing the file we don't need to specify its full path. However, we would need to if the file was in a different folder.
+You can hopefully see that the file was successfully read and the top of the file was printed to the screen. We though need to save the data in the file to an object so that we can refer to it later. To do this you can use the left assignment arrow:
+```
+dat<-read_tsv("EUR373.gene.cis.FDR5.all.rs137.txt.gz")
+```
+Now the contents of the file will be saved into the _dat_ object. Note we could have called this object anything.
+To view the contents of an object you just need to type its name:
+```
+dat
+```
+**_Question 2: Can you see how many columns and rows the dataset contains?_**
+
+This file contains information on variants (_SNP_ID_) in the human genome whose genotypes are correlated to the expression of nearby genes (_GENE_ID_). The strength of this corelation is indicated by the rho and P values (_rvalue_ and _pvalue_). The distance between the SNP and the gene's transcription start site is also shown (_distance_). More details on the file's contents can be found [here](https://www.ebi.ac.uk/arrayexpress/files/E-GEUV-1/GeuvadisRNASeqAnalysisFiles_README.txt).
+
