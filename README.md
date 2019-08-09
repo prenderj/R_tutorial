@@ -12,13 +12,14 @@ The dataset we will use comes from this [paper](https://www.ncbi.nlm.nih.gov/pmc
 First start an interactive session on the ILRI server by typing:
 
 ```
-interactive -c 4
+interactive
 ```
-Then go to the home directory, copy the required data and move to this new directory
+Then go to the home directory, make a new directory and download the required data from the web using wget:
 ```
 cd
-cp -R /export/data/ilri/bioinformatics/workshop_dnaseq/Session1/ ~/
-cd ~/Session1
+mkdir R_tutorial
+cd R_tutorial/
+wget https://www.ebi.ac.uk/arrayexpress/files/E-GEUV-1/EUR373.gene.cis.FDR5.all.rs137.txt.gz
 ```
 
 In this tutorial we will use R to analyse the data you just copied:
