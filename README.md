@@ -114,4 +114,20 @@ ggplot2 provides the ability to generate many different types of plots (scatter,
 ```
 ggplot(av_dist, aes(x=CHR_SNP, y=Median_dist))+geom_point()
 ```
+Depending on how you are running R this plot will either appear in a new window or be saved into a pdf file in your working directory. You can specify the name of the pdf file for the plot to be written to by specifying the _pdf_ function before you run the plotting command. You will also need to specify the _dev.off_ function after finishing the plotting to tell R to close the pdf file and make it ready for reading.
+```
+pdf("distancePlot.pdf")
+ggplot(av_dist, aes(x=CHR_SNP, y=Median_dist))+geom_point()
+dev.off()
+```
+You should now see the distancePlot.pdf file in the R_tutorial folder.
+
 As discussed the ggplot function takes the dataset we want to use (_av_dist_) and the columns we want to plot on each axis (_CHR_SNP_ on the x axis and _Median_dist_ on the y). We then specify we want this plotted as a scatter plot by adding the _geom_point()_ function.
+
+You can see that one chromosome is a big outlier in this analysis, with generally a much larger distance between the variants and corresponding genes.
+**_Question 7: Can you change the plot so that mean rather than median distance is shown. Is chromosome 7 still an outlier?_**
+Scatter plots are ok for this analysis but a boxplot showing the spread of the data would be better:
+```
+ggplot(dat, aes(x=as.factor(CHR_SNP), y=distance))+geom_boxplot()
+```
+Note that we have converted the chromosome to a factor in this analysis. Factors are a way of storing categorical variables in R and means the plot will treat the chromosomes as different groups. You can try removing the _as.factor_ function to see how the plot would be different without having specified this.
