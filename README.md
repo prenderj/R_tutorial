@@ -45,10 +45,8 @@ Once a package is installed you need to remember to load it. If you dont load it
 ```
 library(tidyverse)
 ```
-You will see that by loading "the tidyverse" various packages have been loaded. For example the tibble package. Generally in R each package comes with a vignette that explains a bit about the package. To view the vignette of the tibble package you can type:
-```
-vignette("tibble")
-```
+You will see that by loading "the tidyverse" various packages have been loaded. For example the tibble package. 
+
 **_Question 1: Have a look at the vignette for the stringr package, that was loaded as part of the tidyverse. What is it used for?_**
 
 Each package contains functions for performing a given task, for example reading files or plotting data. We have already used some functions such as install.packages. You can find out more about a function by using the question mark symbol:
@@ -94,15 +92,19 @@ You can see we used a special operator _%>%_ in this code. This has the effect o
 dat %>% filter(CHR_SNP==1) %>% tally()
 ```
 The tally function taking the results of the filter function and counting the number of rows. This number should hopefully match your answer to question 3.
+
 **_Question 5: Change the command above to get the number of rows on chromosome 2?_**
+
 Another useful function is the _group_by_ function. As its name suggests it first groups data according to some criteria, so that any downstream functions are run on each group individually. For example we can get the counts for each chromosome in one command by typing:
 ```
 dat %>% group_by(CHR_SNP) %>% tally()
 ```
+
 Using the _group_by_ and _summarise_ functions we can also get summary statistics by group. For example to get the mean and median distance of variants to the gene to whose gene expression they are correlated by chromosome you can type:
 ```
 dat %>% group_by(CHR_SNP) %>% summarise(Mean_dist=mean(distance), Median_dist=median(distance))
 ```
+
 **_Question 6: Repeat this code but saving the results to an object called av_dist._**
 
 ## Generating plots with ggplot2
@@ -110,7 +112,9 @@ One useful aspect of R is its ability to generate highly customisable plots. The
 ```
 ?ggplot2
 ```
+
 ggplot2 provides the ability to generate many different types of plots (scatter, histogram, violin etc) using a shared grammar. This generally follows the form of calling the main _ggplot_ function to specify the dataset and columns you want to plot, and then a further function specifying the type of plot you want to generate. **Using the av_dist object you created in question 6** we can plot the median distances between putative regulatory variants and genes for each chromosome. 
+
 ```
 ggplot(av_dist, aes(x=CHR_SNP, y=Median_dist))+geom_point()
 ```
@@ -126,8 +130,12 @@ As discussed the ggplot function takes the dataset we want to use (_av_dist_) an
 
 You can see that one chromosome is a big outlier in this analysis, with generally a much larger distance between the variants and corresponding genes.
 **_Question 7: Can you change the plot so that mean rather than median distance is shown. Is chromosome 7 still an outlier?_**
+
 Scatter plots are ok for this analysis but a boxplot showing the spread of the data would be better:
 ```
+pdf("boxPlot.pdf")
 ggplot(dat, aes(x=as.factor(CHR_SNP), y=distance))+geom_boxplot()
+dev.off()
 ```
+
 Note that we have converted the chromosome to a factor in this analysis. Factors are a way of storing categorical variables in R and means the plot will treat the chromosomes as different groups. You can try removing the _as.factor_ function to see how the plot would be different without having specified this.
